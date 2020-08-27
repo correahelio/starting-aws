@@ -83,4 +83,4 @@ Obs.: Com o usuário criado vc não consegue ver o Billing, ou seja, para ver se
 Se vc chegou até aqui vc tem:
 - Alarme de custo na sua conta.
 - Usuário root sem chave e com MFA.
-- Usuário de adm para brincar.
+- Usuário de adm para brincar com MFA.
