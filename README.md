@@ -20,10 +20,14 @@ Configurando IAM:
 - Abra o serviço IAM.
 - Apague a chave do root da sua conta.
 	Link de referência da AWS: https://docs.aws.amazon.com/pt_br/IAM/latest/UserGuide/id_root-user.html#id_root-user_manage_delete-key
-	- Imagem de referência no documento: 1.1
+	
+	![image](https://user-images.githubusercontent.com/22084402/128793855-7fdbeb98-0a2b-44f2-9160-426edd666fde.png)
+
 
 - Vamos configurar um outro fator de autenticação no seu usuário root que é o MFA (Activate multi-factor authentication). 
-	- Imagem de referência: 1.2
+- 
+	![image](https://user-images.githubusercontent.com/22084402/128793865-af757197-a310-4b1c-8461-647bd119d576.png)
+	
 - Eu utilizo o Google Authenticator no Android. Pode utilzar outro se preferir.
 	Obs.: Reparei que após algum tempo sem usar o Google Authenticator ele acaba se perdendo e tirando a sincronia do MFA.
 	- Com isso, após fazer login e errar o MFA algumas vezes, ele vai pedir para vc digitar 2x para que o mesmo seja sincronizado novamente.
@@ -31,13 +35,19 @@ Configurando IAM:
 
 - Vamos criar um usuário para utilizarmos:
 - Abra a opção "Groups" (menu da esquerda) e vamos criar um Group. Eu vou chamá-lo de "Administrators" e vou colocar a Policy de "AdministratorAccess".
-	- Imagem referência: 1.3
+
+
+	![image](https://user-images.githubusercontent.com/22084402/128793913-1db575e7-55f0-43ff-ab1b-dcecb36e4dba.png)
+
 - Agora que temos um Group, vamos criar um usuário. 
 - Abra a opção "Users" (menu da esquerda) e crie um usuário. 
 - Vincule esse usuário ao grupo que criamos anteriormente que é o grupo "Administrators".
-	- Imagem de referência: 1.4
+
+	![image](https://user-images.githubusercontent.com/22084402/128793924-36e23463-9152-41d4-9ad7-bf556d1f6489.png)
+	
 - Aproveita e já ativa MFA também para seu novo usuário.
-	- Imagem de referência: 1.5
+
+	![image](https://user-images.githubusercontent.com/22084402/128793931-cd4a82ae-9a92-4700-969b-b1148ddcdac1.png)
 
 Bom, nesse momento você já passou pela segurança básica. Recapitulando:
 - Apagamos a chave do root.
@@ -49,17 +59,28 @@ O que falta: é CUSTO.
 - Abra o serviço CloudWatch.
 - No menu da esquerda abra a opção de Alarms e crie um Alarm.
 - Utilize a métrica "EstimatedCharge".
-- Imagem de referência 1.6
+
+![image](https://user-images.githubusercontent.com/22084402/128793945-1d44c8cf-d808-413e-b988-1f595c29f665.png)
+
 	- Para isso, selecione uma métrica de "Billing" > "Total EstimatedCharge" > Selecione a opção em USD EstimatedCharge.
-	- Imagem de referência 1.7
+	
 	- Reparem que a minha métrica está com o tempo default, ou seja, ela vai rodar a cada 6 horas e verificar se está em condição de ALARME.
 		- No meu uso da AWS isso me atende. Caso necessário, customize a métrica do seu jeito.
 	- Na próxima página será necessário configurar um tópico SNS. Ele será responsável por realizar o disparo.
 	- Caso vc precise sair da tela e criar um tópico, peço desculpas, mas eu já estava escrevendo essse ponto e não vou parar. Boa sorte pra vc que vai ter que refazer esse passo! (=
+	
+	
+	
+
+
+
 - Bom, após configurar o disparo do SNS o seu alarme vai fica em status "OK".
 - Caso atinga os datapoints configurados um email será disparado para vc.
 - No meu caso, eu tenho 3 alarmes de custo (5, 7 e 10 dólares). Segue a configuração dos meus alarmes.
-	- Imagem de referência 1.8
+
+![image](https://user-images.githubusercontent.com/22084402/128794021-dbe456fc-d355-4abc-bd46-9d94ee627bca.png)
+
+	
 
 Configurando o tópico SNS para disparar seu alarme:
 Abra o serviço de SNS.
@@ -74,11 +95,18 @@ Para finalizarmos:
 - A partir de agora não devemos mais voltar na conta root. Devemos utilizar apenas nosso usuário com criado.
 - Faça login com o outro usuário.
 	- Escolha a opção "Sign in to a different account".
-	- Imagem de referência 1.9
+
+
+	![image](https://user-images.githubusercontent.com/22084402/128794038-2809c39d-6f7f-4c27-abd0-758bfe00a9a3.png)
+	
+	![image](https://user-images.githubusercontent.com/22084402/128794045-ec90130a-068b-475a-816f-bb4cf0657d74.png)
 
 Obs.: O alarme em questão poderia ter sido criado com o novo usuário. Apenas aproveitei o 1o login do root.
 Obs.: Com o usuário criado vc não consegue ver o Billing, ou seja, para ver seus gastos tem que acessar a conta do root ou dar a permissão necessária.
-	- Imagem de referência 1.10
+
+
+![image](https://user-images.githubusercontent.com/22084402/128794422-8a2e9112-ed49-4a43-b0b3-efc18f96f8ad.png)
+
 
 Se vc chegou até aqui vc tem:
 - Alarme de custo na sua conta.
